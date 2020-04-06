@@ -1,4 +1,24 @@
 import Foundation
+import Commander
+
+/**  Commander Begin  */
+
+let option = Option<String>("help", default: "", description: "help") { text -> String in
+    return text
+}
+
+
+
+
+
+struct P12Command: CommandType {
+    func run(_ parser: ArgumentParser) throws {
+        let argument = parser.remainder
+    }
+}
+
+/**  Commander End  */
+
 
 let currentDir = FileManager.default.currentDirectoryPath
 let arguments = CommandLine.arguments
@@ -29,8 +49,14 @@ if filePath.isEmpty {
 }
 
 let url = URL(fileURLWithPath: filePath)
-let data = try Data(contentsOf: url)
-print("data: \(data)")
+var data: Data!
+do {
+    data = try Data(contentsOf: url)
+    print("data: \(data.description)")
+} catch {
+    print("Could not find any file. [error: \(error)]\np12_importer {file_path} [-p] {password}")
+    exit(1)
+}
 
 // -p
 var password = ""
