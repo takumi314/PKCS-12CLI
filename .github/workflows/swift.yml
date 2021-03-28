@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: [macos-latest, x64, paper01]
+    runs-on: [self-hosted, x64, paper01]
 
     steps:
     - uses: actions/checkout@v2
